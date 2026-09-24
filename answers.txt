@@ -1,0 +1,204 @@
+5. PS C:\Users\cmcle\Downloads\GitFall2024-Christina> git status       
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+PS C:\Users\cmcle\Downloads\GitFall2024-Christina> git log
+commit 5f75e751488fd0b16c81325c9ae814ff65f0c95b (HEAD -> main, origin/main, origin/HEAD)
+Merge: fca18d2 b3e573c
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 10:10:46 2024 -0500
+
+    Merge branch 'readme'
+    I do not like VI
+    that is what
+
+commit fca18d2606f45601cf99aec4f279339a0dee18d8
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 10:08:52 2024 -0500
+
+    BookShop class create
+
+commit b3e573c8b75940e9bbcda519b0bece046f4b60eb
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 10:06:47 2024 -0500
+
+    added another name
+
+commit ea123f795a7a0cfc8de45c824e9b7cf17985d355
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 10:06:30 2024 -0500
+
+    added another name
+
+commit 4cd474a9c054ca0c47dcf47ac7ab0a44b6c66757
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 10:05:55 2024 -0500
+
+    sllepy message
+
+commit 82280194a20dfdfea27311d89fdb20761655217f
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 10:03:00 2024 -0500
+
+    Updated readme file
+
+commit 985e63e6d4226c156c56c38d061e57e1672dd90b
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 09:59:08 2024 -0500
+
+    Added more names
+
+commit 21ea409f47aa292619b8dea918c0c3eb02f82ccc
+Author: Esteban Parra <estebanpr014@gmail.com>
+Date:   Tue Sep 10 09:56:24 2024 -0500
+
+    Added names LinkedList
+n/main, origin/HEAD)
+
+n/main, origin/HEAD)
+n/main, origin/HEAD)
+
+
+
+
+
+
+
+
+
+
+
+PS C:\Users\cmcle\Downloads\GitFall2024-Christina> git shortlog
+Esteban Parra (10):
+      starter files
+      added empty Main.java
+      Added names LinkedList
+      Added more names
+      Updated readme file
+      sllepy message
+      added another name
+      added another name
+      BookShop class create
+      Merge branch 'readme' I do not like VI that is what
+
+PS C:\Users\cmcle\Downloads\GitFall2024-Christina> git log --graph
+*   commit 5f75e751488fd0b16c81325c9ae814ff65f0c95b (HEAD -> main, origin/main, origin/HEAD)
+|\  Merge: fca18d2 b3e573c
+| | Author: Esteban Parra <estebanpr014@gmail.com>
+| | Date:   Tue Sep 10 10:10:46 2024 -0500
+| |
+| |     Merge branch 'readme'
+| |     I do not like VI
+| |     that is what
+| |
+| * commit b3e573c8b75940e9bbcda519b0bece046f4b60eb
+| | Author: Esteban Parra <estebanpr014@gmail.com>
+| | Date:   Tue Sep 10 10:06:47 2024 -0500
+| |
+| |     added another name
+| |
+| * commit ea123f795a7a0cfc8de45c824e9b7cf17985d355
+| | Author: Esteban Parra <estebanpr014@gmail.com>
+| | Date:   Tue Sep 10 10:06:30 2024 -0500
+| |
+| |     added another name
+| |
+| * commit 4cd474a9c054ca0c47dcf47ac7ab0a44b6c66757
+| | Author: Esteban Parra <estebanpr014@gmail.com>
+| | Date:   Tue Sep 10 10:05:55 2024 -0500
+| |
+| |     sllepy message
+| |
+* | commit fca18d2606f45601cf99aec4f279339a0dee18d8
+|/  Author: Esteban Parra <estebanpr014@gmail.com>
+|   Date:   Tue Sep 10 10:08:52 2024 -0500
+|
+|       BookShop class create
+|
+* commit 82280194a20dfdfea27311d89fdb20761655217f
+| Author: Esteban Parra <estebanpr014@gmail.com>
+| Date:   Tue Sep 10 10:03:00 2024 -0500
+|
+|     Updated readme file
+|
+* commit 985e63e6d4226c156c56c38d061e57e1672dd90b
+| Author: Esteban Parra <estebanpr014@gmail.com>
+| Date:   Tue Sep 10 09:59:08 2024 -0500
+|
+|     Added more names
+|
+* commit 21ea409f47aa292619b8dea918c0c3eb02f82ccc
+| Author: Esteban Parra <estebanpr014@gmail.com>
+| Date:   Tue Sep 10 09:56:24 2024 -0500
+|
+|     Added names LinkedList
+|
+* commit b02c65d884b0a0f344a482cbb0366139b7bcd969
+| Author: Esteban Parra <estebanpr014@gmail.com>
+| Date:   Tue Sep 10 09:49:33 2024 -0500
+|
+|     added empty Main.java
+|
+* commit bdd2fa9c9cb3d6e17a156106f0da1ac7fd9194ff
+  Author: Esteban Parra <estebanpr014@gmail.com>
+  Date:   Tue Sep 10 09:25:22 2024 -0500
+
+      starter files
+PS C:\Users\cmcle\Downloads\GitFall2024-Christina> git log --graph --oneline
+*   5f75e75 (HEAD -> main, origin/main, origin/HEAD) Merge branch 'readme' I do not like VI that is what
+|\
+| * b3e573c added another name
+| * ea123f7 added another name
+| * 4cd474a sllepy message
+* | fca18d2 BookShop class create
+|/
+* 8228019 Updated readme file
+* 985e63e Added more names
+* 21ea409 Added names LinkedList
+* b02c65d added empty Main.java
+* bdd2fa9 starter files
+(END)
+
+6. origin
+22. This was the output 
+
+* feature1 -> This is the new branch we are on
+ main
+
+ 30. The new file we created in the branch was not showing
+     Directory: C:\Users\cmcle\Downloads\GitFall2024-Christina
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----         9/22/2026  11:05 AM                src
+-a----         9/24/2026   3:46 PM             28 .gitignore
+-a----         9/24/2026   3:58 PM            454 book.txt
+-a----         9/21/2026   9:18 PM            116 BookShop.java
+-a----         9/21/2026   9:18 PM            381 Main.java
+-a----         9/21/2026   9:52 PM              0 properties.txt
+-a----         9/24/2026   4:09 PM            265 README.md
+
+33. It opened a window showing the commit history as a graph. It lists each
+ commit with who made it and when. Both feature1 and main are on the latest 
+ commit, "Modified inspiration.txt,". When I click a commit, the
+  bottom shows its details and the changes, like the quotes I added in green.
+
+a. 23
+b. Date:   Thu Sep 24 15:49:29 2026 -0500
+c. git ls-tree -r --name-only $(git rev-list -1 --before="2020-06-02" HEAD)
+git rev-list finds the last commit before the date, and git ls-tree lists all
+ the files in that commit.
+d. 1, when it was created. 
+e. 1
+f. git log shows the history of commits that have already been made. 
+git status shows the current state of your working folder: which files are 
+modified, staged, or untracked and haven't been committed yet.
+g. It summarizes git log by grouping commits by author, showing how many
+ commits each person made along with their commit messages.
+ h. git log -- Main.java
+ i. git log --follow -p -- Main.java
+ j. git log --grep="account"
+ k. git log --author="Name"
+ l. git log --author="Lauren" --since="2014-01-05" --until="2024-01-14 23:59:59"
