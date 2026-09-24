@@ -7,7 +7,8 @@ This is the starter code for your Git Assignment.
 If you do not see this. You have not pulled/forked the repository after classs correctly
 
 
-Are you sleepy? Yes lol
+Are you sleepy? Yes haha
+ 
 
 
 # GitFall2024
