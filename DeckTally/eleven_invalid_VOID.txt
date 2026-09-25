@@ -1,0 +1,12 @@
+Strike:1
+Bad Card 1:9
+Bad Card 2:9
+Bad Card 3:9
+Bad Card 4:9
+Bad Card 5:9
+Bad Card 6:9
+Bad Card 7:9
+Bad Card 8:9
+Bad Card 9:9
+Bad Card 10:9
+Bad Card 11:9

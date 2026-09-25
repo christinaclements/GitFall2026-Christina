@@ -1,0 +1,12 @@
+Strike:1
+:2
+   :1
+		:3
+Bash:7
+Zap:-1
+Defend:3.5
+Wallop:abc
+Eruption
+Vigilance:
+Omniscience:6
+Ragnarok:5

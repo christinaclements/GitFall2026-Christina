@@ -1,0 +1,12 @@
+Strike:1
+Omniscience:6
+Defend:0
+Eruption:2
+Ragnarok:5
+Vigilance:3
+Strike:1
+Defend:1
+Omniscience:6
+Eruption:2
+Ragnarok:4
+Vigilance:4

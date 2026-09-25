@@ -1,0 +1,5 @@
+Strike:1
+
+
+Defend:2
+   
