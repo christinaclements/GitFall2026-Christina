@@ -5,3 +5,40 @@ Despite constant danger from brutal training and hostile cadets, Violet’s
  intelligence and resilience help her endure, ultimately forming 
  unprecedented bonds with peers and uncovering a hidden truth about
   a far darker enemy threatening their kingdom. 
+
+PS C:\Users\cmcle\Downloads\GitFall2024-Christina> git status
+On branch main
+Your branch is ahead of 'origin/main' by 3 commits.
+  (use "git push" to publish your local commits)
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        book.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+PS C:\Users\cmcle\Downloads\GitFall2024-Christina> 
+
+
+commit 74caef3f5d3db8d676def53873010975db9ba084 (HEAD -> main, origin/main, origin/HEAD)
+Author: christinaclements <christina.clements@bruins.belmont.edu>
+Date:   Thu Sep 24 16:18:18 2026 -0500
+
+    Step 14 commit errors
+
+    The repository owner has made previous commits at each step that modified the repository. She was unaware of this step and the requirements of a good commit until now. Apologizes for the previously wrong commits and hopefully she can be forgiven
+
+diff --git a/README.md b/README.md
+index c8bff3a..5ca07dd 100644
+--- a/README.md
++++ b/README.md
+@@ -7,7 +7,8 @@ This is the starter code for your Git Assignment.
+ If you do not see this. You have not pulled/forked the repository after classs correctly      
+
+
+-Are you sleepy? Yes lol
++Are you sleepy? Yes haha
++ 
+
+
+ # GitFall2024
+(END)
