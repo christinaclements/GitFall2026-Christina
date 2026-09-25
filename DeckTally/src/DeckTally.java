@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -22,6 +23,14 @@ public class DeckTally {
     private static final int MAX_INVALID_CARDS = 10;
     private static final int MAX_CARDS = 1000;
 
+    // Layout of the report page, in PDF points (72 points = 1 inch)
+    private static final int LEFT_MARGIN = 72;
+    private static final int BAR_START_X = 150;
+    private static final int MAX_BAR_WIDTH = 300;
+    private static final int BAR_HEIGHT = 14;
+    private static final int ROW_SPACING = 22;
+    private static final int LINE_SPACING = 16;
+
     /**
      * Overview: Runs the program.
      * Input: args - command line arguments (not used)
@@ -30,8 +39,9 @@ public class DeckTally {
      *   1. Ask the user for the deck file name.
      *   2. Read the file into a list of valid cards and a list of invalid lines.
      *   3. Generate a deck ID.
-     *   4. If the deck is void, report VOID.
-     *   5. Otherwise, total the costs and build the histogram.
+     *   4. If the deck is void, create a VOID report.
+     *   5. Otherwise, total the costs, build the histogram, and create the regular report.
+     *   6. Tell the user the name of the report file, or show an error if it could not be saved.
      */
     public static void main(String[] args) {
         Scanner keyboard = new Scanner(System.in);
@@ -42,14 +52,21 @@ public class DeckTally {
         readDeck(fileName, validCards, invalidCards);
 
         int deckId = generateDeckId();
-        System.out.println("Deck ID: " + deckId);
 
-        if (isVoidDeck(validCards, invalidCards)) {
-            System.out.println("VOID");
-        } else {
-            int totalCost = calculateTotalCost(validCards);
-            int[] histogram = buildHistogram(validCards);
-            System.out.println("Total cost: " + totalCost + " energy");
+        try {
+            String reportName;
+            if (isVoidDeck(validCards, invalidCards)) {
+                reportName = getVoidReportFileName(deckId);
+                writeVoidReport(reportName);
+            } else {
+                int totalCost = calculateTotalCost(validCards);
+                int[] histogram = buildHistogram(validCards);
+                reportName = getReportFileName(deckId);
+                writeReport(reportName, deckId, totalCost, histogram, invalidCards);
+            }
+            System.out.println("Report saved as " + reportName);
+        } catch (IOException e) {
+            System.out.println("Could not save the report: " + e.getMessage());
         }
 
         keyboard.close();
@@ -171,8 +188,8 @@ public class DeckTally {
         boolean idIsUnique = false;
         while (!idIsUnique) {
             deckId = MIN_DECK_ID + random.nextInt(MAX_DECK_ID - MIN_DECK_ID + 1);
-            File regularReport = new File("SpireDeck_" + deckId + ".pdf");
-            File voidReport = new File("SpireDeck_" + deckId + "(VOID).pdf");
+            File regularReport = new File(getReportFileName(deckId));
+            File voidReport = new File(getVoidReportFileName(deckId));
             if (!regularReport.exists() && !voidReport.exists()) {
                 idIsUnique = true;
             }
@@ -236,5 +253,124 @@ public class DeckTally {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Overview: Builds the file name for a regular report.
+     * Input: deckId - the deck's 9-digit id
+     * Output: The file name, for example SpireDeck_252644859.pdf
+     * Steps:
+     *   1. Join "SpireDeck_", the id, and ".pdf".
+     */
+    public static String getReportFileName(int deckId) {
+        return "SpireDeck_" + deckId + ".pdf";
+    }
+
+    /**
+     * Overview: Builds the file name for a VOID report.
+     * Input: deckId - the deck's 9-digit id
+     * Output: The file name, for example SpireDeck_252644859(VOID).pdf
+     * Steps:
+     *   1. Join "SpireDeck_", the id, and "(VOID).pdf".
+     */
+    public static String getVoidReportFileName(int deckId) {
+        return "SpireDeck_" + deckId + "(VOID).pdf";
+    }
+
+    /**
+     * Total Disclaimer: I used AI to help me create this method for the report
+     * builder. I gave it a mock example of what I wanted it to look like
+     * so that it could help with the specific formatting. I had no idea where to start on my own
+     *
+     * Overview: Creates the regular PDF report for a deck.
+     * Input: reportName - the file name to save the report as;
+     *        deckId - the deck's 9-digit id;
+     *        totalCost - the total energy cost of the valid cards;
+     *        histogram - the number of cards at each cost from 0 to 6;
+     *        invalidCards - the list of invalid lines from the file
+     * Output: None (creates the PDF file)
+     * Steps:
+     *   1. Add the title, deck id, and total cost.
+     *   2. Find the largest histogram count so the bars can be scaled to fit the page.
+     *   3. For each cost from 0 to 6, add a label, a bar sized by its count, and the count.
+     *   4. Add the list of invalid cards, or "None" if there are none.
+     *   5. Save the PDF.
+     * Throws: IOException if the file cannot be written
+     */
+    public static void writeReport(String reportName, int deckId, int totalCost, int[] histogram,
+                                   ArrayList<String> invalidCards) throws IOException {
+        SimplePdf pdf = new SimplePdf();
+        int y = 720;
+        pdf.addText("Slay the Spire Deck Report", LEFT_MARGIN, y, 20, true);
+        y = y - 30;
+        pdf.addText("Deck ID: " + deckId, LEFT_MARGIN, y, 12, false);
+        y = y - 20;
+        pdf.addText("Total cost: " + totalCost + " energy", LEFT_MARGIN, y, 12, false);
+
+        // Histogram
+        y = y - 35;
+        pdf.addText("Energy Cost Histogram", LEFT_MARGIN, y, 14, true);
+
+        int largestCount = 0;
+        for (int cost = MIN_COST; cost <= MAX_COST; cost++) {
+            if (histogram[cost] > largestCount) {
+                largestCount = histogram[cost];
+            }
+        }
+
+        for (int cost = MIN_COST; cost <= MAX_COST; cost++) {
+            y = y - ROW_SPACING;
+            pdf.addText(cost + " energy", LEFT_MARGIN, y, 12, false);
+
+            // The largest count gets the full bar width; the others are scaled to match
+            int barWidth = 0;
+            if (largestCount > 0) {
+                barWidth = histogram[cost] * MAX_BAR_WIDTH / largestCount;
+            }
+            if (barWidth > 0) {
+                pdf.addRectangle(BAR_START_X, y - 3, barWidth, BAR_HEIGHT);
+            }
+
+            String countLabel;
+            if (histogram[cost] == 1) {
+                countLabel = "1 card";
+            } else {
+                countLabel = histogram[cost] + " cards";
+            }
+            pdf.addText(countLabel, BAR_START_X + barWidth + 8, y, 12, false);
+        }
+
+        // Invalid cards
+        y = y - 40;
+        pdf.addText("Invalid Cards (" + invalidCards.size() + ")", LEFT_MARGIN, y, 14, true);
+        if (invalidCards.size() == 0) {
+            y = y - LINE_SPACING - 4;
+            pdf.addText("None", LEFT_MARGIN, y, 12, false);
+        } else {
+            for (int i = 0; i < invalidCards.size(); i++) {
+                y = y - LINE_SPACING;
+                // Quotes show where each line starts and ends, including blank names
+                pdf.addText("\"" + invalidCards.get(i) + "\"", LEFT_MARGIN, y, 12, false);
+            }
+        }
+
+        pdf.save(reportName);
+    }
+
+    /**
+     * Overview: Creates the VOID PDF report, which shows VOID instead of the deck information.
+     * Input: reportName - the file name to save the report as
+     * Output: None (creates the PDF file)
+     * Steps:
+     *   1. Add the title.
+     *   2. Add the word VOID in large text.
+     *   3. Save the PDF.
+     * Throws: IOException if the file cannot be written
+     */
+    public static void writeVoidReport(String reportName) throws IOException {
+        SimplePdf pdf = new SimplePdf();
+        pdf.addText("Slay the Spire Deck Report", LEFT_MARGIN, 720, 20, true);
+        pdf.addText("VOID", LEFT_MARGIN, 650, 48, true);
+        pdf.save(reportName);
     }
 }
