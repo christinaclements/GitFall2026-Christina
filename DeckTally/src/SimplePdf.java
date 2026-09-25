@@ -7,7 +7,6 @@ import java.nio.charset.StandardCharsets;
  * in the DeckTally. I gave it a mock example of what I wanted it to look like
  * so that it could help with the specific formatting. I had no idea where to start on my own
  *
- *
  * Builds a simple one-page PDF file with text and filled rectangles.
  * It writes the PDF format directly, so no outside library is needed.
  */
