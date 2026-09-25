@@ -11,7 +11,12 @@ public class Card {
     private int cost;
 
     /**
-     * Creates a new card with a name and an energy cost.
+     * Overview: Creates a new card with a name and an energy cost.
+     * Input: name - the card's name; cost - the card's energy cost (0 to 6)
+     * Output: A new Card object
+     * Steps:
+     *   1. Store the name.
+     *   2. Store the cost.
      */
     public Card(String name, int cost) {
         this.name = name;
@@ -19,14 +24,22 @@ public class Card {
     }
 
     /**
-     * Return the card's name.
+     * Overview: Gets the card's name.
+     * Input: None
+     * Output: The card's name
+     * Steps:
+     *   1. Return the stored name.
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Return the card's energy cost.
+     * Overview: Gets the card's energy cost.
+     * Input: None
+     * Output: The card's energy cost (0 to 6)
+     * Steps:
+     *   1. Return the stored cost.
      */
     public int getCost() {
         return cost;
