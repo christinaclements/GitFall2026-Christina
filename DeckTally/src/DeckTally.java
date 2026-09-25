@@ -18,15 +18,20 @@ public class DeckTally {
     private static final int MIN_DECK_ID = 100000000;
     private static final int MAX_DECK_ID = 999999999;
 
+    // Limits that make a report VOID
+    private static final int MAX_INVALID_CARDS = 10;
+    private static final int MAX_CARDS = 1000;
+
     /**
      * Overview: Runs the program.
-     * Input: args - command line arguments
-     * Output: None 
+     * Input: args - command line arguments (not used)
+     * Output: None
      * Steps:
      *   1. Ask the user for the deck file name.
      *   2. Read the file into a list of valid cards and a list of invalid lines.
-     *   3. Generate a deck ID, total the costs, and build the histogram.
-     *   4. Print the results so they can be checked.
+     *   3. Generate a deck ID.
+     *   4. If the deck is void, report VOID.
+     *   5. Otherwise, total the costs and build the histogram.
      */
     public static void main(String[] args) {
         Scanner keyboard = new Scanner(System.in);
@@ -37,8 +42,15 @@ public class DeckTally {
         readDeck(fileName, validCards, invalidCards);
 
         int deckId = generateDeckId();
-        int totalCost = calculateTotalCost(validCards);
-        int[] histogram = buildHistogram(validCards);
+        System.out.println("Deck ID: " + deckId);
+
+        if (isVoidDeck(validCards, invalidCards)) {
+            System.out.println("VOID");
+        } else {
+            int totalCost = calculateTotalCost(validCards);
+            int[] histogram = buildHistogram(validCards);
+            System.out.println("Total cost: " + totalCost + " energy");
+        }
 
         keyboard.close();
     }
@@ -119,7 +131,7 @@ public class DeckTally {
      */
     public static Card parseCard(String line) {
         int colonIndex = line.lastIndexOf(':');
-        //if there is no colon, invalid
+        // If there is no colon, the line is invalid
         if (colonIndex == -1) {
             return null;
         }
@@ -158,7 +170,6 @@ public class DeckTally {
         int deckId = 0;
         boolean idIsUnique = false;
         while (!idIsUnique) {
-            // nextInt(n) gives int from MIN_DECK_ID to MAX_DECK_ID
             deckId = MIN_DECK_ID + random.nextInt(MAX_DECK_ID - MIN_DECK_ID + 1);
             File regularReport = new File("SpireDeck_" + deckId + ".pdf");
             File voidReport = new File("SpireDeck_" + deckId + "(VOID).pdf");
@@ -203,5 +214,27 @@ public class DeckTally {
             histogram[cost] = histogram[cost] + 1;
         }
         return histogram;
+    }
+
+    /**
+     * Overview: Decides whether the deck should get a VOID report.
+     * Input: validCards - the list of valid cards;
+     *        invalidCards - the list of invalid lines
+     * Output: true if the report should be VOID, false otherwise
+     * Steps:
+     *   1. Count the total number of cards (valid plus invalid).
+     *   2. If there are more than 10 invalid cards, the deck is void.
+     *   3. If there are more than 1000 cards in total, the deck is void.
+     *   4. Otherwise, the deck is not void.
+     */
+    public static boolean isVoidDeck(ArrayList<Card> validCards, ArrayList<String> invalidCards) {
+        int totalCards = validCards.size() + invalidCards.size();
+        if (invalidCards.size() > MAX_INVALID_CARDS) {
+            return true;
+        } else if (totalCards > MAX_CARDS) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
